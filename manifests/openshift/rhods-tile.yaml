@@ -81,7 +81,6 @@ spec:
   enable:
     validationConfigMap: stability-studio-enale
   getStartedLink: 'https://stability.ai/blog/stablestudio-open-source-community-driven-future-dreamstudio-release'
-  internalRoute: stability-studio-ui
   route: stability-studio-ui
   routeNamespace: stability-studio
   displayName: "Stability Studio"
