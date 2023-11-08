@@ -3,22 +3,29 @@ This document explains how to build and deploy StabilityStudio on Openshift
 Container Platform
 
 
-## Building
-Use the following commands to build and push a container image for StabilityStudio
+## Deployment
+First, let's build the image for our Openshift Cluster. Open
+`manifests/openshift/build-config.yaml` file and replace `spec.source.git.uri`
+by your fork url. After that, create the buildConfig object for building the
+image and store it in Openshift internal registry, as a ImageStream object.
+```sh
+export NS="stability-studio"
+oc new-project $NS
+
+
+oc apply -f manifests/openshift/build-config.yaml
+
+oc start-build stability-studio
+```
+
+Now, deploy the application
+```sh
+oc apply -f manifests/openshift/stability-studio.yaml
+```
+
+Wait until every pod is on Running, and check the routes to find the HTTPS
+endpoint
 
 ```sh
-# Building image
-podman build -t stability-studio:v0.1.0 -f ./manifests/Containerfile .
-
-# Tagging image
-IMAGE_SERVER="<your-container-image-server-url>" # (quay.io, hub.docker...)
-IMAGE_REPO="<your-repo-name>" # (username on image server)
-IMAGE_TAG="<desired-image-tag>" # (v0.1.0, rc-XX, latest...)
-
-podman tag localhost/stability-studio:v0.1.0 $IMAGE_SERVER/$IMAGE_REPO/stability-studio:$IMAGE_TAG
-podman tag localhost/stability-studio:v0.1.0 $IMAGE_SERVER/$IMAGE_REPO/stability-studio:latest
-
-# Pushing to repo
-podman push $IMAGE_SERVER/$IMAGE_REPO/stability-studio:$IMAGE_TAG
-podman push $IMAGE_SERVER/$IMAGE_REPO/stability-studio:latest
+oc get routes
 ```

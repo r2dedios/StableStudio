@@ -1,0 +1,26 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: stability-studio
+  labels:
+    owner: stability.ai
+spec:
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/r2dedios/StableStudio'
+      ref: rhods-integration
+    contextDir: /
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: ./manifests/Containerfile
+      from:
+        kind: DockerImage
+        name: 'docker.io/library/node:14'
+  output:
+    to:
+      kind: ImageStreamTag
+      namespace: stability-studio
+      name: 'stability-studio:latest'
+
