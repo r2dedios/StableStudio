@@ -1,13 +1,17 @@
-FROM node:14
+FROM registry.redhat.io/ubi9/nodejs-16:1-138
 
+
+USER 0
 WORKDIR /app
-
 COPY . .
+RUN npm install --global yarn
 RUN yarn install
-RUN chown -R node:root /app
+RUN chown -R 1001:root /app
+RUN chown -R 1001:root /opt/app-root
+
+USER 1001
 
 EXPOSE 8080
 
-USER 1000
 
 CMD ["yarn", "dev"]

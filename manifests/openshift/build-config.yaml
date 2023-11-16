@@ -17,7 +17,7 @@ spec:
       dockerfilePath: ./manifests/Containerfile
       from:
         kind: DockerImage
-        name: 'docker.io/library/node:14'
+        name: 'registry.redhat.io/rhel8/nodejs-14:1-111'
   output:
     to:
       kind: ImageStreamTag

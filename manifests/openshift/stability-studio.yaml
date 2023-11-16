@@ -19,7 +19,7 @@ spec:
         app: stability-studio
     spec:
       containers:
-        - image: image-registry.openshift-image-registry.svc:5000/stability-studio/stability-studio:latest
+        - image: quay.io/avillega/stability-studio:latest
           imagePullPolicy: Always
           name: container
           ports:
@@ -29,7 +29,7 @@ spec:
       restartPolicy: Always
       serviceAccountName: stability-studio
       securityContext:
-        runAsUser: 1000
+        runAsUser: 1001
       terminationGracePeriodSeconds: 30
 
 

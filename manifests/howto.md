@@ -3,6 +3,19 @@ This document explains how to build and deploy StabilityStudio on Openshift
 Container Platform
 
 
+## Building image
+```sh
+export IMAGE_REPO="<your-organization>"
+export IMAGE_SERVER="quay.io"
+export IMAGE_TAG="latest"
+
+
+podman build -t stability-studio:v0.1.0 -f ./manifests/Containerfile .
+podman tag localhost/stability-studio:v0.1.0 $IMAGE_SERVER/$IMAGE_REPO/stability-studio:latest
+podman push $IMAGE_SERVER/$IMAGE_REPO/stability-studio:latest
+```
+
+
 ## Deployment
 First, let's build the image for our Openshift Cluster. Open
 `manifests/openshift/build-config.yaml` file and replace `spec.source.git.uri`
