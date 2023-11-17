@@ -1,13 +1,14 @@
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
-  name: stability-studio
+  name: stable-studio-image
   labels:
-    owner: stability.ai
+    provider: stability.ai
+    builder: redhat
 spec:
   source:
     type: Git
-    git:
+    git: # Update this values if you're using a fork repo
       uri: 'https://github.com/r2dedios/StableStudio'
       ref: rhods-integration
     contextDir: /
@@ -21,6 +22,6 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      namespace: stability-studio
-      name: 'stability-studio:latest'
+      namespace: stable-studio
+      name: 'stable-studio:latest'
 
