@@ -25,3 +25,11 @@ spec:
       namespace: stable-studio
       name: 'stable-studio:latest'
 
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: stable-studio
+  namespace: stable-studio
+
+
