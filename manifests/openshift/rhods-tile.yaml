@@ -3,7 +3,7 @@ kind: OdhApplication
 metadata:
   annotations:
     opendatahub.io/categories: 'AI image generation'
-  name: stability-studio
+  name: stable-studio
   namespace: redhat-ods-applications
   labels:
     app: odh-dashboard
@@ -79,18 +79,17 @@ spec:
          inkscape:connector-curvature="0" />
     </svg>
   enable:
-    validationConfigMap: stability-studio-enale
+    validationConfigMap: stable-studio-enable
   getStartedLink: 'https://stability.ai/blog/stablestudio-open-source-community-driven-future-dreamstudio-release'
-  route: stability-studio-ui
-  routeNamespace: stability-studio
-  displayName: "Stability Studio"
+  route: stable-studio-ui
+  routeNamespace: stable-studio
+  displayName: "Stable Studio"
   kfdefApplications: []
   support: redhat
   provider: Stability.ai
   docsLink: 'https://stability.ai'
   getStartedMarkDown: >-
-    # Stability Studio
-
+    # Stable Studio of Stability.ai
 
     Stability AI is thrilled to announce StableStudio, the open-source release
     of our premiere text-to-image consumer application DreamStudio.
@@ -102,13 +101,3 @@ spec:
   description: >-
     Stability Studio, text-to-image consumer application
   category: Red Hat managed
-
-
----
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: stability-studio-enable
-  namespace: redhat-ods-applications
-data:
-  validation_result: 'true'

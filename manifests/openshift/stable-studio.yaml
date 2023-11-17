@@ -1,25 +1,24 @@
-# oc adm policy add-scc-to-user anyuid -z stability-studio
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: stability-studio
+  name: stable-studio
   labels:
-    app: stability-studio
+    app: stable-studio
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: stability-studio
+      app: stable-studio
   template:
     metadata:
       labels:
-        app: stability-studio
+        app: stable-studio
     spec:
       containers:
-        - image: quay.io/avillega/stability-studio:latest
+        - image: image-registry.openshift-image-registry.svc:5000/stable-studio/stable-studio:latest
           imagePullPolicy: Always
           name: container
           ports:
@@ -27,7 +26,7 @@ spec:
               containerPort: 3000
               protocol: TCP
       restartPolicy: Always
-      serviceAccountName: stability-studio
+      serviceAccountName: stable-studio
       securityContext:
         runAsUser: 1001
       terminationGracePeriodSeconds: 30
@@ -37,12 +36,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: stability-studio
+  name: stable-studio
   labels:
-    app: stability-studio
+    app: stable-studio
 spec:
   selector:
-    app: stability-studio
+    app: stable-studio
   ports:
     - protocol: TCP
       port: 3000
@@ -53,22 +52,22 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: stability-studio
+  name: stable-studio
   labels:
-    app: stability-studio
+    app: stable-studio
 
 
 ---
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: stability-studio-ui
+  name: stable-studio-ui
   labels:
-    app: stability-studio
+    app: stable-studio
 spec:
   to:
     kind: Service
-    name: stability-studio
+    name: stable-studio
   tls:
     termination: edge
   port:
